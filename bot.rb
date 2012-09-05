@@ -4,14 +4,14 @@ require 'cinch'
 
 $bot = Cinch::Bot.new do
   configure do |c|
-    c.server = 'irc.freenode.net'
-    c.user = 'kittybot'
-    c.nick = 'KittyBot'
-    c.realname = 'The Kitty Bot, of course!'
-    c.channels = ['#kittybot']
+    c.server = 'irc.foonetic.net'
+    c.user = 'radbot'
+    c.nick = 'radius'
+    c.realname = 'RadBot'
+    c.channels = ['#radius']
   end
-  
-  on :message, "!pokekittybot" do |m|
+
+  on :message, "poke" do |m|
     m.reply "Ouch!"
   end
 end
