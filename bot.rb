@@ -6,7 +6,7 @@ $bot = Cinch::Bot.new do
   configure do |c|
     c.server = 'irc.foonetic.net'
     c.user = 'radbot'
-    c.nick = 'radius'
+    c.nick = 'radbot'
     c.realname = 'RadBot'
     c.channels = ['#radius']
   end
