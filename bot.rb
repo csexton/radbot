@@ -32,6 +32,15 @@ $bot = Cinch::Bot.new do
   on :message, "poke" do |m|
     m.reply "Ouch!"
   end
+
+  on :message, /LOL/i do |m|
+    images = [
+      "http://i.imgur.com/PgP44.png",
+      "http://i.imgur.com/n1xml.png"
+    ]
+    m.reply images.sample
+  end
+
 end
 
 $bot.start
