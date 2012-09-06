@@ -18,7 +18,10 @@ $bot = Cinch::Bot.new do
   end
 
   on :message do |m|
-    # Log all the messages to mongo
+    # Log every message to mongo
+    channel = m.channel.to_s.gsub('#', '')
+    user = m.user.to_s
+    message = m.message.to_s
     $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
   end
 
