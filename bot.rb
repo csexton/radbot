@@ -4,9 +4,11 @@ require 'uri'
 require 'cinch'
 require 'mongo'
 
-MONGO_URI = ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
-$conn = Mongo::Connection.from_uri(MONGO_URI)
-$db   = $conn.db(URI.parse(MONGO_URI).path.gsub(/^\//, ''))
+ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
+
+# Mongo ruby adapter will use MONGODB_URI env var for connection string
+$conn = Mongo::Connection.new
+$db   = $conn.db if $conn
 
 $bot = Cinch::Bot.new do
   configure do |c|
@@ -14,15 +16,17 @@ $bot = Cinch::Bot.new do
     c.user = 'radbot'
     c.nick = 'radbot'
     c.realname = 'RadBot'
-    c.channels = ['#radius']
+    c.channels = ['#devradius']
   end
 
   on :message do |m|
-    # Log every message to mongo
-    channel = m.channel.to_s.gsub('#', '')
-    user = m.user.to_s
-    message = m.message.to_s
-    $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
+    if $db
+      # Log every message to mongo
+      channel = m.channel.to_s.gsub('#', '')
+      user = m.user.to_s
+      message = m.message.to_s
+      $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
+    end
   end
 
   on :message, "poke" do |m|
