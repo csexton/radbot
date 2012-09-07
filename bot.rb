@@ -3,6 +3,8 @@
 require 'uri'
 require 'cinch'
 require 'mongo'
+require 'open-uri'
+require 'json'
 
 ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
 
@@ -16,7 +18,7 @@ $bot = Cinch::Bot.new do
     c.user = 'radbot'
     c.nick = 'radbot'
     c.realname = 'RadBot'
-    c.channels = ['#radius']
+    c.channels = ['#devradius']
   end
 
   on :message do |m|
@@ -33,7 +35,10 @@ $bot = Cinch::Bot.new do
     m.reply "Ouch!"
   end
 
-  on :message, /LOL/i do |m|
+  #
+  # Lol Plugin
+  #
+  on :message, /\blol\b|\blolz\b/i do |m|
     images = [
       "http://i.imgur.com/PgP44.png",
       "http://i.imgur.com/n1xml.png"
@@ -41,6 +46,64 @@ $bot = Cinch::Bot.new do
     m.reply images.sample
   end
 
+  #
+  # Stock Plugin
+  #
+  on :message, /stock (.*)/i do |m,ticker|
+    if ticker
+      time ||= '1d'
+      m.reply "http://chart.finance.yahoo.com/z?s=#{ticker}&t=1d&q=l&l=on&z=l&a=v&p=s&lang=en-US&region=US#.png"
+    else
+      m.reply 'Huh?'
+    end
+  end
+
+  #
+  # Haters Plugin
+  #
+  on :message, /.*hater(z|s)?.*/i do |m|
+    images = [
+      "http://i.imgur.com/XaZRf.gif",
+      #"http://i.imgur.com/oxLDK.gif",
+      #"http://i.imgur.com/WN8Ud.gif",
+      "http://i.imgur.com/B0ehW.gif",
+      "http://i.imgur.com/6oPAO.gif",
+      "http://i.imgur.com/0X1AK.png",
+      "http://i.imgur.com/FPIUh.png",
+      "http://i.imgur.com/Kpx68.jpg"
+    ]
+    m.reply images.sample
+  end
+
+  #
+  # Coffee Plugin
+  #
+  on :message, /.*coffee.*/ do |m|
+    message = [
+      [:reply, "Hey guys, I like coffee!"],
+      [:reply, "Yay!"],
+      [:reply, "Coffee!"],
+      [:reply, "Coffee? I hope you don't mean Coffeescript! It is a nice option, but don't make it the default."],
+      [:action, "smiles"],
+      [:action, "is happy"],
+      [:action, "dances a *really* fast jig"]
+    ]
+    msg = message.sample
+    if msg.first == :action
+      m.channel.action msg.last
+    else
+      m.reply msg.last
+    end
+  end
+
+  #
+  # Cheer me up Plugin
+  #
+  on :message, /cheer me up/i do |m|
+    images = JSON(open("http://imgur.com/r/aww.json").read)['gallery']
+    image = images[rand(images.length)]
+    m.reply "http://i.imgur.com/#{image['hash']}#{image['ext']}"
+  end
 end
 
 $bot.start
