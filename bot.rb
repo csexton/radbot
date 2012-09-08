@@ -70,6 +70,7 @@ $bot = Cinch::Bot.new do
       "http://i.imgur.com/6oPAO.gif",
       "http://i.imgur.com/0X1AK.png",
       "http://i.imgur.com/FPIUh.png",
+      "http://i.imgur.com/296IJ.gif",
       "http://i.imgur.com/Kpx68.jpg"
     ]
     m.reply images.sample
