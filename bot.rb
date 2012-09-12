@@ -18,7 +18,8 @@ $bot = Cinch::Bot.new do
     c.user = 'radbot'
     c.nick = 'radbot'
     c.realname = 'RadBot'
-    c.channels = ['#radius','#1313']
+    #c.channels = ['#radius','#1313']
+    c.channels = ['#devradius']
   end
 
   on :message do |m|
@@ -31,8 +32,20 @@ $bot = Cinch::Bot.new do
     end
   end
 
-  on :message, "poke" do |m|
-    m.reply "Ouch!"
+
+  on :message, /radbot say:(.*)/i do |m,message|
+    $bot.channels.each do |c|
+      c.send(message)
+    end
+  end
+
+  on :message, /radbot say (.*):(.*)/i do |m,channel,message|
+    $bot.channels.each do |c|
+      if c == channel
+        c.send(message)
+        ret = "Said #{message} on #{c}"
+      end
+    end
   end
 
   #
