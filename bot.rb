@@ -18,7 +18,7 @@ $bot = Cinch::Bot.new do
     c.user = 'radbot'
     c.nick = 'radbot'
     c.realname = 'RadBot'
-    c.channels = ['#radius']
+    c.channels = ['#radius','#1313']
   end
 
   on :message do |m|
