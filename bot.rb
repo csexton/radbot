@@ -14,11 +14,12 @@ $db   = $conn.db if $conn
 
 $bot = Cinch::Bot.new do
   configure do |c|
-    c.server = 'irc.foonetic.net'
+    c.server = 'irc.radiusnetworks.com'
     c.user = 'radbot'
     c.nick = 'radbot'
     c.realname = 'RadBot'
-    c.channels = ['#radius','#1313']
+    c.password = ENV['IRC_PASS']
+    c.channels = ['#radius']
     #c.channels = ['#devradius']
   end
 
