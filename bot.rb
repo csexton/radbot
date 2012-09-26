@@ -117,7 +117,7 @@ $bot = Cinch::Bot.new do
   # Cheer me up Plugin
   #
   on :message, /cheer (.*?) up/i do |m, n|
-    images = JSON(open("http://imgur.com/r/aww.json").read)['gallery']
+    images = JSON(open("http://imgur.com/r/aww.json").read)['data']
     image = images[rand(images.length)]
     m.reply "http://i.imgur.com/#{image['hash']}#{image['ext']}"
     if n != "me" || n != "you"
