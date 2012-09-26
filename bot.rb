@@ -78,6 +78,8 @@ $bot = Cinch::Bot.new do
   on :message, /.*hater(z|s)?.*/i do |m|
     images = [
       "http://i.imgur.com/XaZRf.gif",
+      "http://i.imgur.com/imPCK.gif",
+      "http://i.imgur.com/kaIiQ.jpg",
       #"http://i.imgur.com/oxLDK.gif",
       #"http://i.imgur.com/WN8Ud.gif",
       "http://i.imgur.com/B0ehW.gif",
