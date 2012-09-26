@@ -120,7 +120,7 @@ $bot = Cinch::Bot.new do
     images = JSON(open("http://imgur.com/r/aww.json").read)['data']
     image = images[rand(images.length)]
     m.reply "http://i.imgur.com/#{image['hash']}#{image['ext']}"
-    if n != "me" || n != "you"
+    if n == "me" || n == "you"
       m.reply "I hope that makes #{n} feel better"
     end
   end
