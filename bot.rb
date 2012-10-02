@@ -142,6 +142,41 @@ $bot = Cinch::Bot.new do
     m.reply message.sample
   end
 
+  #
+  # Gravity Falls Plugin
+  #
+  on :message, /.*(puke).*/i do |m|
+    m.reply "http://i.imgur.com/G0Z36.gif"
+  end
+  on :message, /.*(attack).*/i do |m|
+    m.reply "http://i.imgur.com/xXsO4.gif"
+  end
+  on :message, /.*(legal).*/i do |m|
+    m.reply "http://i.imgur.com/Kmulu.gif"
+  end
+
+  on :message, /.*(snuggle).*/i do |m|
+    m.reply "http://i.imgur.com/TaWjH.gif"
+  end
+  on :message, /.*(whee).*/i do |m|
+    message = [
+      "http://i.imgur.com/ZwzU3.gif",
+      "http://i.imgur.com/QAJlS.gif",
+      "http://i.imgur.com/zTIPM.gif",
+      "http://i.imgur.com/Ovato.gif",
+      "shh, please"
+    ]
+    m.reply message.sample
+  end
+
+
+  #
+  #
+  #
+  on :message, /.*(i hate).*/i do |m|
+    m.reply "http://i.imgur.com/ZrN7c.jpg"
+  end
+
 
   #
   # Is up plugin
