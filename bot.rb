@@ -1,39 +1,51 @@
 #! /usr/bin/env ruby
 
+require "bundler/setup"
 require 'uri'
 require 'cinch'
+require "cinch/plugins/cleverbot"
 require 'mongo'
 require 'open-uri'
 require 'json'
-require './plugins/cleverbot'
+#require './plugins/cleverbot'
 
-ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
+# Set the Env
+CINCH_ENV = ENV["CINCH_ENV"] || "development"
 
-# Mongo ruby adapter will use MONGODB_URI env var for connection string
-$conn = Mongo::Connection.new
-$db   = $conn.db if $conn
+#ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
+#
+## Mongo ruby adapter will use MONGODB_URI env var for connection string
+#$conn = Mongo::Connection.new
+#$db   = $conn.db if $conn
 
 $bot = Cinch::Bot.new do
   configure do |c|
     c.server = 'irc.radiusnetworks.com'
-    c.user = 'radbot'
-    c.nick = 'radbot'
     c.realname = 'RadBot'
     c.password = ENV['IRC_PASS']
-    c.channels = ['#radius']
-    #c.channels = ['#devradius']
+
+    if CINCH_ENV == "development"
+      c.channels = ['#devradius']
+      c.user = 'radbot_dev'
+      c.nick = 'radbot_dev'
+    else
+      c.channels = ['#radius']
+      c.user = 'radbot'
+      c.nick = 'radbot'
+    end
+
     c.plugins.plugins = [Cinch::Plugins::CleverBot]
   end
 
-  on :message do |m|
-    if $db
-      # Log every message to mongo
-      channel = m.channel.to_s.gsub('#', '')
-      user = m.user.to_s
-      message = m.message.to_s
-      $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
-    end
-  end
+#  on :message do |m|
+#    if $db
+#      # Log every message to mongo
+#      channel = m.channel.to_s.gsub('#', '')
+#      user = m.user.to_s
+#      message = m.message.to_s
+#      $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
+#    end
+#  end
 
 
   on :message, /radbot say:(.*)/i do |m,message|
