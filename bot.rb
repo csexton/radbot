@@ -3,11 +3,11 @@
 require "bundler/setup"
 require 'uri'
 require 'cinch'
-require "cinch/plugins/cleverbot"
+#require "cinch/plugins/cleverbot"
 require 'mongo'
 require 'open-uri'
 require 'json'
-#require './plugins/cleverbot'
+require './plugins/cleverbot'
 
 # Set the Env
 CINCH_ENV = ENV["CINCH_ENV"] || "development"
