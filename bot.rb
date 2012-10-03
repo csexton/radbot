@@ -4,7 +4,7 @@ require "bundler/setup"
 require 'uri'
 require 'cinch'
 #require "cinch/plugins/cleverbot"
-require 'mongo'
+#require 'mongo'
 require 'open-uri'
 require 'json'
 require './plugins/cleverbot'
