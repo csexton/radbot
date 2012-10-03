@@ -5,6 +5,7 @@ require 'cinch'
 require 'mongo'
 require 'open-uri'
 require 'json'
+require './plugins/cleverbot'
 
 ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
 
@@ -21,6 +22,7 @@ $bot = Cinch::Bot.new do
     c.password = ENV['IRC_PASS']
     c.channels = ['#radius']
     #c.channels = ['#devradius']
+    c.plugins.plugins = [Cinch::Plugins::CleverBot]
   end
 
   on :message do |m|
