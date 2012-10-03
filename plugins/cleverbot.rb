@@ -2,9 +2,8 @@ require 'cinch'
 
 module Cinch
   module Plugins
-    require 'cleverbot'
-
     class CleverBot
+      require 'cleverbot'
       include Cinch::Plugin
 
       match lambda { |m| /^#{m.bot.nick} (.+)/i }, use_prefix: false
