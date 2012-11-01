@@ -185,7 +185,7 @@ $bot = Cinch::Bot.new do
 
 
   #
-  #
+  # I hate plugin
   #
   on :message, /.*(i hate).*/i do |m|
     m.reply "http://i.imgur.com/ZrN7c.jpg"
