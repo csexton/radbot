@@ -191,6 +191,12 @@ $bot = Cinch::Bot.new do
     m.reply "http://i.imgur.com/ZrN7c.jpg"
   end
 
+  #
+  # I sad plugin
+  #
+  on :message, /.*(makes me sad).*/i do |m|
+    m.reply "http://i.imgur.com/XEC69.gif"
+  end
 
   #
   # Is up plugin
