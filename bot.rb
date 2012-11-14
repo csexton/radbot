@@ -220,6 +220,155 @@ $bot = Cinch::Bot.new do
     m.reply body
   end
 
+  #
+  # http status codes
+  #
+  on :message, /http.(\d\d\d)\b/i do |m, code_str|
+    code = Integer code_str
+    resp = case code
+           when 100
+             "Continue"
+           when 101
+             "Switching Protocols"
+           when 102
+             "Processing"
+           when 103..199
+             "Unassigned"
+           when 200
+             "OK"
+           when 201
+             "Created"
+           when 202
+             "Accepted"
+           when 203
+             "Non..Authoritative Information"
+           when 204
+             "No Content"
+           when 205
+             "Reset Content"
+           when 206
+             "Partial Content"
+           when 207
+             "Multi..Status"
+           when 208
+             "Already Reported"
+           when 209..225
+             "Unassigned"
+           when 226
+             "IM Used"
+           when 227..299
+             "Unassigned"
+           when 300
+             "Multiple Choices"
+           when 301
+             "Moved Permanently"
+           when 302
+             "Found"
+           when 303
+             "See Other"
+           when 304
+             "Not Modified"
+           when 305
+             "Use Proxy"
+           when 306
+             "Reserved"
+           when 307
+             "Temporary Redirect"
+           when 308
+             "Permanent Redirect"
+           when 309..399
+             "Unassigned"
+           when 400
+             "Bad Request"
+           when 401
+             "Unauthorized"
+           when 402
+             "Payment Required"
+           when 403
+             "Forbidden"
+           when 404
+             "Not Found"
+           when 405
+             "Method Not Allowed"
+           when 406
+             "Not Acceptable"
+           when 407
+             "Proxy Authentication Required"
+           when 408
+             "Request Timeout"
+           when 409
+             "Conflict"
+           when 410
+             "Gone"
+           when 411
+             "Length Required"
+           when 412
+             "Precondition Failed"
+           when 413
+             "Request Entity Too Large"
+           when 414
+             "Request-URI Too Long"
+           when 415
+             "Unsupported Media Type"
+           when 416
+             "Requested Range Not Satisfiable"
+           when 417
+             "Expectation Failed"
+           when 418
+             "I'm a Teapot"
+           when 422
+             "Unprocessable Entity"
+           when 423
+             "Locked"
+           when 424
+             "Failed Dependency"
+           when 425
+             "Reserved for WebDAV advanced collections expired proposal"
+           when 426
+             "Upgrade Required"
+           when 427
+             "Unassigned"
+           when 428
+             "Precondition Required"
+           when 429
+             "Too Many Requests"
+           when 430
+             "Unassigned"
+           when 431
+             "Request Header Fields Too Large"
+           when 432..499
+             "Unassigned"
+           when 500
+             "Internal Server Error"
+           when 501
+             "Not Implemented"
+           when 502
+             "Bad Gateway"
+           when 503
+             "Service Unavailable"
+           when 504
+             "Gateway Timeout"
+           when 505
+             "HTTP Version Not Supported"
+           when 506
+             "Variant Also Negotiates (Experimental)"
+           when 507
+             "Insufficient Storage"
+           when 508
+             "Loop Detected"
+           when 509
+             "Unassigned"
+           when 510
+             "Not Extended"
+           when 511
+             "Network Authentication Required"
+           when 512..599
+             "Unassigned"
+           end
+    m.reply "HTTP #{code}: #{resp}"
+  end
+
+
 
 end
 
