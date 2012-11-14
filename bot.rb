@@ -212,6 +212,14 @@ $bot = Cinch::Bot.new do
     end
   end
 
+  #
+  # zen
+  #
+  on :message, /zen/i do |m|
+    body = open("https://api.github.com/zen").read
+    m.reply body
+  end
+
 
 end
 
