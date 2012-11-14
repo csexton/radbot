@@ -232,8 +232,6 @@ $bot = Cinch::Bot.new do
              "Switching Protocols"
            when 102
              "Processing"
-           when 103..199
-             "Unassigned"
            when 200
              "OK"
            when 201
@@ -241,47 +239,41 @@ $bot = Cinch::Bot.new do
            when 202
              "Accepted"
            when 203
-             "Non..Authoritative Information"
+             "Non-Authoritative Information"
            when 204
-             "No Content"
+             "No Content (Won't return a response body)"
            when 205
-             "Reset Content"
+             "Reset Content (Won't return a response body)"
            when 206
              "Partial Content"
            when 207
              "Multi..Status"
            when 208
              "Already Reported"
-           when 209..225
-             "Unassigned"
            when 226
              "IM Used"
-           when 227..299
-             "Unassigned"
            when 300
              "Multiple Choices"
            when 301
-             "Moved Permanently"
+             "Moved Permanently (Will also return this extra header: Location: http://radbot.com)"
            when 302
-             "Found"
+             "Found (Will also return this extra header: Location: http://radbot.com)"
            when 303
-             "See Other"
+             "See Other (Will also return this extra header: Location: http://radbot.com)"
            when 304
-             "Not Modified"
+             "Not Modified (Will also return this extra header: Location: http://radbot.com)"
            when 305
-             "Use Proxy"
+             "Use Proxy (Will also return this extra header: Location: http://radbot.com)"
            when 306
              "Reserved"
            when 307
-             "Temporary Redirect"
+             "Temporary Redirect (Will also return this extra header: Location: http://radbot.com)"
            when 308
-             "Permanent Redirect"
-           when 309..399
-             "Unassigned"
+             "Permanent Redirect (Will also return this extra header: Location: http://radbot.com)"
            when 400
              "Bad Request"
            when 401
-             "Unauthorized"
+             "Unauthorized (Will also return this extra header: WWW-Authenticate: Basic realm=\"Fake Realm\""
            when 402
              "Payment Required"
            when 403
@@ -293,7 +285,7 @@ $bot = Cinch::Bot.new do
            when 406
              "Not Acceptable"
            when 407
-             "Proxy Authentication Required"
+             "Proxy Authentication Required (Will also return this extra header: Proxy-Authenticate: Basic realm=\"Fake Realm\")"
            when 408
              "Request Timeout"
            when 409
@@ -315,7 +307,9 @@ $bot = Cinch::Bot.new do
            when 417
              "Expectation Failed"
            when 418
-             "I'm a Teapot"
+             "I'm a teapot"
+           when 420
+             "Enhance Your Calm"
            when 422
              "Unprocessable Entity"
            when 423
@@ -326,18 +320,12 @@ $bot = Cinch::Bot.new do
              "Reserved for WebDAV advanced collections expired proposal"
            when 426
              "Upgrade Required"
-           when 427
-             "Unassigned"
            when 428
              "Precondition Required"
            when 429
              "Too Many Requests"
-           when 430
-             "Unassigned"
            when 431
              "Request Header Fields Too Large"
-           when 432..499
-             "Unassigned"
            when 500
              "Internal Server Error"
            when 501
@@ -356,16 +344,14 @@ $bot = Cinch::Bot.new do
              "Insufficient Storage"
            when 508
              "Loop Detected"
-           when 509
-             "Unassigned"
            when 510
              "Not Extended"
            when 511
              "Network Authentication Required"
-           when 512..599
+           else
              "Unassigned"
            end
-    m.reply "HTTP #{code}: #{resp}"
+    m.reply "HTTP #{code}: #{resp}" if resp
   end
 
 
