@@ -6,7 +6,7 @@ module Cinch
       require 'cleverbot'
       include Cinch::Plugin
 
-      match lambda { |m| /^#{m.bot.nick} (.+)/i }, use_prefix: false
+      match lambda { |m| /^#{m.bot.nick}(:|\s)+(.+)/i }, use_prefix: false
 
       def initialize(*args)
         super
@@ -14,7 +14,7 @@ module Cinch
         @cleverbot = Cleverbot::Client.new
       end
 
-      def execute(m, message)
+      def execute(m, sep, message)
         msg_back = @cleverbot.write message
         m.reply msg_back, true
       end
