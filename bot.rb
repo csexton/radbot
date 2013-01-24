@@ -215,11 +215,17 @@ $bot = Cinch::Bot.new do
   #
   # SQUIRREL
   #
-  on :message, /s/i do |m|
-    if rand(200) == 0
+  on :message do |m|
+    # Randomlly say squirrel
+    if rand(500) == 0
       m.reply "SQUIRREL!"
     end
   end
+
+  on :message, /squirrel/i do |m|
+    m.reply "SQUIRREL!"
+  end
+
   #
   # zen
   #
