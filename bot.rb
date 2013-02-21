@@ -10,7 +10,7 @@ require 'json'
 require './plugins/cleverbot'
 
 # Set the Env
-CINCH_ENV = ENV["CINCH_ENV"] || "development"
+IRC_ENV = ENV["IRC_ENV"] || "development"
 
 #ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
 #
@@ -20,18 +20,18 @@ CINCH_ENV = ENV["CINCH_ENV"] || "development"
 
 $bot = Cinch::Bot.new do
   configure do |c|
-    c.server = 'irc.radiusnetworks.com'
+    c.server = ENV['IRC_SERVER']
     c.realname = 'RadBot'
     c.password = ENV['IRC_PASS']
 
-    if CINCH_ENV == "development"
-      c.channels = ['#devradius']
+    if IRC_ENV == "development"
+      c.channels = ['#radbot_dev']
       c.user = 'radbot_dev'
       c.nick = 'radbot_dev'
     else
-      c.channels = ['#radius']
-      c.user = 'radbot'
-      c.nick = 'radbot'
+      c.channels = ENV['IRC_CHAN']
+      c.user = ENV['IRC_USER'] || 'radbot'
+      c.nick = ENV['IRC_NICK'] || c.user
     end
 
     c.plugins.plugins = [Cinch::Plugins::CleverBot]
