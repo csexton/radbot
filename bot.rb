@@ -350,9 +350,6 @@ $bot = Cinch::Bot.new do
            end
     m.reply "HTTP #{code}: #{resp}" if resp
   end
-
-
-
 end
 
 $bot.start
