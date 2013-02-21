@@ -10,43 +10,26 @@ require 'json'
 require './plugins/cleverbot'
 
 # Set the Env
-CINCH_ENV = ENV["CINCH_ENV"] || "development"
-
-#ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
-#
-## Mongo ruby adapter will use MONGODB_URI env var for connection string
-#$conn = Mongo::Connection.new
-#$db   = $conn.db if $conn
+IRC_ENV = ENV["IRC_ENV"] || "development"
 
 $bot = Cinch::Bot.new do
   configure do |c|
-    c.server = 'irc.radiusnetworks.com'
+    c.server = ENV['IRC_SERVER']
     c.realname = 'RadBot'
     c.password = ENV['IRC_PASS']
 
-    if CINCH_ENV == "development"
-      c.channels = ['#devradius']
+    if IRC_ENV == "development"
+      c.channels = ['#radbot_dev']
       c.user = 'radbot_dev'
       c.nick = 'radbot_dev'
     else
-      c.channels = ['#radius']
-      c.user = 'radbot'
-      c.nick = 'radbot'
+      c.channels = [ENV['IRC_CHAN']]
+      c.user = ENV['IRC_USER'] || 'radbot'
+      c.nick = ENV['IRC_NICK'] || c.user
     end
 
     c.plugins.plugins = [Cinch::Plugins::CleverBot]
   end
-
-#  on :message do |m|
-#    if $db
-#      # Log every message to mongo
-#      channel = m.channel.to_s.gsub('#', '')
-#      user = m.user.to_s
-#      message = m.message.to_s
-#      $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
-#    end
-#  end
-
 
   on :message, /radbot say:(.*)/i do |m,message|
     $bot.channels.each do |c|
@@ -367,9 +350,6 @@ $bot = Cinch::Bot.new do
            end
     m.reply "HTTP #{code}: #{resp}" if resp
   end
-
-
-
 end
 
 $bot.start
