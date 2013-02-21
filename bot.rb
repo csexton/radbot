@@ -29,7 +29,7 @@ $bot = Cinch::Bot.new do
       c.user = 'radbot_dev'
       c.nick = 'radbot_dev'
     else
-      c.channels = ENV['IRC_CHAN']
+      c.channels = [ENV['IRC_CHAN']]
       c.user = ENV['IRC_USER'] || 'radbot'
       c.nick = ENV['IRC_NICK'] || c.user
     end
