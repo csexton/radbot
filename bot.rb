@@ -12,12 +12,6 @@ require './plugins/cleverbot'
 # Set the Env
 IRC_ENV = ENV["IRC_ENV"] || "development"
 
-#ENV["MONGODB_URI"] ||= ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/radbot_development"
-#
-## Mongo ruby adapter will use MONGODB_URI env var for connection string
-#$conn = Mongo::Connection.new
-#$db   = $conn.db if $conn
-
 $bot = Cinch::Bot.new do
   configure do |c|
     c.server = ENV['IRC_SERVER']
@@ -36,17 +30,6 @@ $bot = Cinch::Bot.new do
 
     c.plugins.plugins = [Cinch::Plugins::CleverBot]
   end
-
-#  on :message do |m|
-#    if $db
-#      # Log every message to mongo
-#      channel = m.channel.to_s.gsub('#', '')
-#      user = m.user.to_s
-#      message = m.message.to_s
-#      $db["channel_#{channel}"].insert({'user' => user, 'message' => message, 'time' => Time.now})
-#    end
-#  end
-
 
   on :message, /radbot say:(.*)/i do |m,message|
     $bot.channels.each do |c|
