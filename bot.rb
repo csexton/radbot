@@ -31,6 +31,12 @@ $bot = Cinch::Bot.new do
     c.plugins.plugins = [Cinch::Plugins::CleverBot]
   end
 
+  on :connect do
+    if ENV['IRC_NICK_PASS']
+      User("nickserv").send("identify #{ENV['IRC_NICK_PASS']}")
+    end
+  end
+
   on :message, /radbot say:(.*)/i do |m,message|
     $bot.channels.each do |c|
       c.send(message)
