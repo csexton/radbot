@@ -6,7 +6,7 @@ module Cinch
       require 'cleverbot'
       include Cinch::Plugin
 
-      match lambda { |m| /^#{m.bot.nick}(:|\s)+(.+)/i }, use_prefix: false
+      match lambda { |m| /^#{m.bot.nick}(,|:|\s)+(.+)/i }, use_prefix: false
 
       def initialize(*args)
         super
