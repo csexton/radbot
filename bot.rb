@@ -129,6 +129,13 @@ $bot = Cinch::Bot.new do
   end
 
   #
+  # Cray-cray
+  #
+  on :message, /.*(crazy|cray).*/i do |m|
+    m.reply "http://i.imgur.com/hycIuKc.jpg"
+  end
+
+  #
   # Illogical
   #
   on :message, /.*(illogical).*/i do |m|
