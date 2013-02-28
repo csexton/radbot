@@ -15,6 +15,10 @@ module Cinch
       end
 
       def execute(m, sep, message)
+        if message =~ /talk to (\w+) about (\w+)/i
+          return m.channel.msg "#{$1}: What do you think of #{$2}?"
+        end
+
         msg_back = @cleverbot.write message
         m.reply msg_back, true
       end
