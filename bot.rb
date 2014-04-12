@@ -191,7 +191,8 @@ $bot = Cinch::Bot.new do
   #
   # Is up plugin
   #
-  on :message, /is (.*?) (up|down)(\?)?/i do |m, domain|
+  on :message, /
+  is https?:\/\/(.*?) (up|down)(\?)?/i do |m, domain|
     body = open("http://www.isup.me/"+domain).read
     if body.include? "It's just you"
       m.reply "#{domain} looks UP from here."
