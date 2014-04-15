@@ -16,3 +16,4 @@ RadBot needs to know his enviroment:
     heroku config:add IRC_USER="radbot"
     heroku config:add IRC_NICK="radbot"
 
+:-)
